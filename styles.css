@@ -1,25 +1,74 @@
 html {
-    padding: 2em;
+    padding: 10em;
 }
 
+body {
+    display: flex;
+    gap: 50%;
+}
+
+/* DO NOT TOUCH */
 .board {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 20%;
+    height: 20em;
 }
 
 .row {
     display: flex;
-    margin-top: -2.6em;
+    margin-top: -1.5em;
 }
 
 .hexagon {
+    display: inline-block;
     position: relative;
-    height: 10em;
-    width: 10em;
+    height: 5.5em;
+    width: 5em;
     background: black;
-    margin-left: -.1em;
+    margin-left: -.2em;
     margin-right: -.1em;
+}
+
+.tiles {
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
+}
+
+.tile {
+    position: relative;
+    display: flex;
+}
+
+.tileRow {
+    display: flex;
+    gap: 2em;
+}
+
+.water {
+    background: none;
+    background-color: #00A3FF;
+}
+
+.forest {
+    background: none;
+    background-color: #1C8D6D;
+}
+
+.mountain {
+    background: none;
+    background-color: #6F6F6F;
+}
+
+.grass {
+    background: none;
+    background-color: #9DD12E;
+}
+
+.tile div:before {
+    background: none;
 }
 
 .hexagon:before, .double:after {
@@ -52,8 +101,4 @@ html {
     background: black;
 }
 
-/* Just for demo */
-
-.hexagon {
-    display: inline-block;
-}
+/* YOU CAN TOUCH HERE */
