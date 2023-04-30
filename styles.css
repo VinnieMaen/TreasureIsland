@@ -1,0 +1,44 @@
+html {
+    padding: 2em;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+}
+
+.row {
+    display: flex;
+    gap: .1em;
+}
+
+.hexagon {
+    width: 100px;
+    /* Adjust as needed */
+    height: 55px;
+    /* Adjust as needed */
+    position: relative;
+    background-color: lightgray;
+    border-width: .11em;
+    transform: rotate(0deg);
+
+}
+
+.hexagon:before,
+.hexagon:after {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    background-color: inherit;
+}
+
+.hexagon:before {
+    transform: rotate(-60deg);
+}
+
+.hexagon:after {
+    transform: rotate(60deg);
+}
