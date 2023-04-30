@@ -6,39 +6,54 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2em;
 }
 
 .row {
     display: flex;
-    gap: .1em;
+    margin-top: -2.6em;
 }
 
 .hexagon {
-    width: 100px;
-    /* Adjust as needed */
-    height: 55px;
-    /* Adjust as needed */
     position: relative;
-    background-color: lightgray;
-    border-width: .11em;
-    transform: rotate(0deg);
-
+    height: 10em;
+    width: 10em;
+    background: black;
+    margin-left: -.1em;
+    margin-right: -.1em;
 }
 
-.hexagon:before,
-.hexagon:after {
-    content: "";
+.hexagon:before, .double:after {
     position: absolute;
-    width: inherit;
-    height: inherit;
-    background-color: inherit;
+    content: '';
 }
 
 .hexagon:before {
-    transform: rotate(-60deg);
+    top: 4px;
+    /* border width */
+    left: 4px;
+    /* border width */
+    height: calc(100% - 8px);
+    /* 100% - (2 * border width) */
+    width: calc(100% - 8px);
+    /* 100% - (2 * border width) */
+    background: #fff;
 }
 
-.hexagon:after {
-    transform: rotate(60deg);
+.hexagon, .hexagon:before, .double:after {
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.double:after {
+    top: 8px;
+    left: 8px;
+    height: calc(100% - 16px);
+    width: calc(100% - 16px);
+    background: black;
+}
+
+/* Just for demo */
+
+.hexagon {
+    display: inline-block;
 }
