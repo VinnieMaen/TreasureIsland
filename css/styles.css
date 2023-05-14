@@ -1,0 +1,206 @@
+:root {
+    --white: #f4f6f6;
+    --lightgray: #d1d1d1;
+    --darkgray: #292929;
+    --black: #181818;
+    --green: #2ED1A2;
+    --yellow: #FEC961;
+    --primary: var(--white);
+    --secondary: var(--lightgray);
+    --textDefault: var(--black);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: var(--darkgray);
+        --secondary: var(--black);
+        --textDefault: var(--white);
+    }
+}
+
+html {
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+body {
+    padding: 2em;
+    margin: 0;
+    background-image: url(/images/bg_img.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    color: var(--textDefault);
+}
+
+main {
+    width: 65%;
+    margin: auto;
+    padding: 2em;
+    border-radius: 1em;
+    background-color: var(--primary);
+}
+
+/* *** TOP OF GAME *** */
+
+.game-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoname {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.logoname h1 {
+    color: var(--green);
+}
+
+.logoname h1 span{
+    color: var(--yellow);
+}
+
+.timer {
+    border: 1px solid var(--textDefault);
+    width: 15em;
+    height: 5em;
+    border-radius: .5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer p {
+    font-size: 4em;
+    margin: 0;
+}
+
+hr {
+    margin: 2em 0;
+    color: var(--textDefault);
+}
+
+/* *** PUZZLE *** */
+
+.game {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+}
+
+.board {
+    width: 50%;
+    padding: 2em;
+    border: 1px solid var(--green);
+    border-radius: .5em;
+}
+
+.tiles {
+    width: 50%;
+    padding: 2em;
+    border: 1px solid var(--yellow);
+    border-radius: .5em;
+}
+
+
+
+/* DO NOT TOUCH */
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 21.5em;
+}
+
+.row {
+    display: flex;
+    margin-top: -1.5em;
+}
+
+.hexagon {
+    display: inline-block;
+    position: relative;
+    height: 5.5em;
+    width: 5em;
+    background: var(--textDefault);
+    margin-left: -.2em;
+    margin-right: -.1em;
+}
+
+.tiles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4em;
+}
+
+.tile {
+    position: relative;
+    display: flex;
+}
+
+.tileRow {
+    display: flex;
+    gap: 2em;
+}
+
+.water {
+    background: none;
+    background-color: #00A3FF;
+}
+
+.forest {
+    background: none;
+    background-color: #1C8D6D;
+}
+
+.mountain {
+    background: none;
+    background-color: #6F6F6F;
+}
+
+.grass {
+    background: none;
+    background-color: #9DD12E;
+}
+
+.tile div:before {
+    background: none;
+}
+
+.hexagon:before, .double:after {
+    position: absolute;
+    content: '';
+}
+
+.hexagon:before {
+    top: 4px;
+    /* border width */
+    left: 4px;
+    /* border width */
+    height: calc(100% - 8px);
+    /* 100% - (2 * border width) */
+    width: calc(100% - 8px);
+    /* 100% - (2 * border width) */
+    background: var(--secondary);
+}
+
+.hexagon, .hexagon:before, .double:after {
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.double:after {
+    top: 8px;
+    left: 8px;
+    height: calc(100% - 16px);
+    width: calc(100% - 16px);
+    background: black;
+}
+
+/* YOU CAN TOUCH HERE */
