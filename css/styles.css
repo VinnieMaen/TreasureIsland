@@ -136,7 +136,7 @@ h3 {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    height: 21.5em;
+    padding: 11em 0;
 }
 
 .row {
@@ -174,54 +174,54 @@ h3 {
 
 .tiles .water {
     background: none;
-    background-color: #00A3FF;
+    background-color: var(--water);
     z-index: 20;
 }
 
 .tiles .forest {
     background: none;
-    background-color: #1C8D6D;
+    background-color: var(--forest);
 }
 
 .tiles .mountain {
     background: none;
-    background-color: #6F6F6F;
+    background-color: var(--mountain);
 }
 
 .tiles .grass {
     background: none;
-    background-color: #9DD12E;
+    background-color: var(--grass);
 }
 
 .tiles .none {
     background: none;
-    background-color: #000000;
+    background-color: var(--black);
 }
 
 .water:before {
     background: none;
-    background-color: #00A3FF;
+    background-color: var(--water);
     z-index: 20;
 }
 
 .forest:before {
     background: none;
-    background-color: #1C8D6D;
+    background-color: var(--forest);
 }
 
 .mountain:before {
     background: none;
-    background-color: #6F6F6F;
+    background-color: var(--mountain);
 }
 
 .grass:before {
     background: none;
-    background-color: #9DD12E;
+    background-color: var(--grass);
 }
 
 .none:before {
     background: none;
-    background-color: #000000;
+    background-color: var(--black);
 }
 
 .tile div:before {
