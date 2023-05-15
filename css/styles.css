@@ -197,6 +197,16 @@ h3 {
     background-color: var(--black);
 }
 
+.crook {
+    position: absolute;
+    top: -66px;
+    right: -40px
+}
+
+.end {
+    display: none;
+}
+
 .water:before {
     background: none;
     background-color: var(--water);
