@@ -1,0 +1,64 @@
+:root {
+    --white: #f4f6f6;
+    --lightgray: #d1d1d1;
+    --darkgray: #292929;
+    --black: #181818;
+    --green: #2ED1A2;
+    --yellow: #FEC961;
+    --water: #00A3FF;
+    --forest: #1C8D6D;
+    --mountain: #6F6F6F;
+    --grass: #9DD12E;
+    --primary: var(--white);
+    --secondary: var(--lightgray);
+    --textDefault: var(--black);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: var(--darkgray);
+        --secondary: var(--black);
+        --textDefault: var(--white);
+    }
+}
+
+.hexagon {
+    display: inline-block;
+    position: relative;
+    height: 5.5em;
+    width: 5em;
+    background: var(--textDefault);
+    margin-left: -.2em;
+    margin-right: -.1em;
+}
+
+.hexagon:before {
+    background: var(--secondary);
+}
+
+.water:before {
+    background: var(--water);
+}
+
+.forest:before {
+    background: var(--forest);
+}
+
+.mountain:before {
+    background: var(--mountain);
+}
+
+.grass:before {
+    background: var(--secondary);
+}
+
+.grass:before, .mountain:before, .forest:before, .water:before, .hexagon:before {
+    top: 4px;
+    /* border width */
+    left: 4px;
+    /* border width */
+    height: calc(100% - 8px);
+    /* 100% - (2 * border width) */
+    width: calc(100% - 8px);
+    /* 100% - (2 * border width) */
+}

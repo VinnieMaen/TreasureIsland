@@ -5,6 +5,10 @@
     --black: #181818;
     --green: #2ED1A2;
     --yellow: #FEC961;
+    --water: #00A3FF;
+    --forest: #1C8D6D;
+    --mountain: #6F6F6F;
+    --grass: #9DD12E;
     --primary: var(--white);
     --secondary: var(--lightgray);
     --textDefault: var(--black);
@@ -39,9 +43,10 @@ main {
     padding: 2em;
     border-radius: 1em;
     background-color: var(--primary);
+    min-width: 52em;
 }
 
-/* *** TOP OF GAME *** */
+/* *** TOP MAIN *** */
 
 .game-nav {
     display: flex;
@@ -83,7 +88,7 @@ hr {
     color: var(--textDefault);
 }
 
-/* *** PUZZLE *** */
+/* *** MAIN *** */
 
 .game {
     display: flex;
@@ -92,21 +97,38 @@ hr {
     gap: 1em;
 }
 
-.board {
+.game > div {
     width: 50%;
     padding: 2em;
+}
+
+.borderG {
     border: 1px solid var(--green);
     border-radius: .5em;
 }
 
-.tiles {
-    width: 50%;
-    padding: 2em;
+.borderY {
     border: 1px solid var(--yellow);
     border-radius: .5em;
 }
 
+/* *** PUZZLE *** */
 
+h3 {
+    margin: 0;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.puzzlegame {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+}
+
+.puzzlecards {
+    padding: 2em 0;
+}
 
 /* DO NOT TOUCH */
 .board {
@@ -136,7 +158,8 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4em;
+    gap: 5em;
+    padding: 2.5em 0;
 }
 
 .tile {
@@ -211,6 +234,26 @@ hr {
 }
 
 .hexagon:before {
+    background: var(--secondary);
+}
+
+.water:before {
+    background: var(--water);
+}
+
+.forest:before {
+    background: var(--forest);
+}
+
+.mountain:before {
+    background: var(--mountain);
+}
+
+.grass:before {
+    background: var(--grass);
+}
+
+.grass:before, .mountain:before, .forest:before, .water:before, .hexagon:before {
     top: 4px;
     /* border width */
     left: 4px;
