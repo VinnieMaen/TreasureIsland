@@ -1,23 +1,29 @@
 'use-strict'
 ;(() => {
-  class BoardRenderer {
-    constructor (board) {
-      this.board = board
-    }
+  let board = [
+    [0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0]
+  ]
 
-    createRow () {
+  class BoardRenderer {
+    constructor () {}
+
+    static createRow () {
       let div = document.createElement('div')
       div.className = 'row'
 
       return div
     }
 
-    createTile (type, rowDiv) {
+    static createTile (type, rowDiv, row, col) {
       let typeClass
 
       switch (type) {
         case 0:
-          typeClass = "none"
+          typeClass = 'none'
           break
         case 1:
           typeClass = 'water'
@@ -34,17 +40,22 @@
       }
 
       let div = document.createElement('div')
+
+      div.setAttribute('data-col', col)
+      div.setAttribute('data-row', row)
+
+      div.id = 'tile'
       div.className = 'hexagon'
       typeClass && div.classList.add(typeClass)
 
       rowDiv.appendChild(div)
     }
 
-    renderBoard () {
-      for (let row = 0; row < this.board.length; row++) {
+    static renderBoard () {
+      for (let row = 0; row < board.length; row++) {
         let rowDiv = this.createRow()
-        for (let column = 0; column < this.board[row].length; column++) {
-          this.createTile(this.board[row][column], rowDiv)
+        for (let column = 0; column < board[row].length; column++) {
+          this.createTile(board[row][column], rowDiv, row, column)
         }
         document.getElementById('gameBoard').appendChild(rowDiv)
       }
@@ -54,6 +65,8 @@
   class TileHandler {
     constructor () {
       this.dragging = false
+      this.dragType = 0
+      this.dragTarget = null
     }
 
     setListeners () {
@@ -63,6 +76,9 @@
         onstart: event => {
           this.dragging = true
           var target = event.target
+          this.dragType = Number(target.getAttribute('data-type'))
+          this.dragTarget = target
+          console.log(target)
           target.classList.add('snapped')
         },
         onmove: event => {
@@ -81,18 +97,66 @@
           target.setAttribute('data-y', y)
         },
         onend: event => {
+          this.dragType = 0
           this.dragging = false
+          this.dragTarget = null
+
           var target = event.target
           target.classList.remove('snapped')
-          console.log(event.target)
         }
       })
 
-      interact('.tile').dropzone({
-        overlap: 0,
-        ondrop (event) {
+      interact('#tile').dropzone({
+        overlap: 0.2,
+        ondrop: event => {
           const target = event.target
-          console.log(target)
+          let col = Number(target.getAttribute('data-col'))
+          let row = Number(target.getAttribute('data-row'))
+          let rot = Number(this.dragTarget.getAttribute('data-rot'))
+
+          if (rot === 0) {
+            if ((board[row][col - 1] === 0) & (board[row][col] === 0)) {
+              board[row][col] = Number(this.dragType)
+              board[row][col - 1] = Number(this.dragType)
+
+              this.dragTarget.remove()
+            }
+          } else if (rot === 60 || rot === 240) {
+            if (row >= 3) {
+              if (board[row - 1][col] === 0 && board[row][col] === 0) {
+                board[row][col] = Number(this.dragType)
+                board[row - 1][col] = Number(this.dragType)
+
+                this.dragTarget.remove()
+              }
+            } else {
+              if (board[row - 1][col - 1] === 0 && board[row][col] === 0) {
+                board[row][col] = Number(this.dragType)
+                board[row - 1][col - 1] = Number(this.dragType)
+
+                this.dragTarget.remove()
+              }
+            }
+          } else if (rot === 120 || rot === 300) {
+            if (row >= 3) {
+              if (board[row - 1][col + 1] === 0 && board[row][col] === 0) {
+                board[row][col] = Number(this.dragType)
+                board[row - 1][col + 1] = Number(this.dragType)
+
+                this.dragTarget.remove()
+              }
+            } else {
+              if (board[row - 1][col] === 0 && board[row][col] === 0) {
+                board[row][col] = Number(this.dragType)
+                board[row - 1][col] = Number(this.dragType)
+
+                this.dragTarget.remove()
+              }
+            }
+          }
+
+          document.getElementById('gameBoard').innerHTML = ''
+          BoardRenderer.renderBoard()
         }
       })
 
@@ -105,8 +169,9 @@
               : 0
 
             if (isNaN(curRot)) curRot = 0
-
             curRot += 60 // Adjust the rotation value as needed
+
+            if (curRot == 360) curRot = 0
 
             tile.setAttribute('data-rot', curRot)
             let x = parseFloat(tile.getAttribute('data-x')) || 0
@@ -121,18 +186,6 @@
   }
 
   let handeler = new TileHandler()
-
-  let board = [
-    [0, 0, 0],
-    [0, 0, 2, 2],
-    [0, 1, 1, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0]
-  ]
-
-  let renderer = new BoardRenderer(board)
-
-  renderer.renderBoard()
-
+  BoardRenderer.renderBoard()
   handeler.setListeners()
 })()
