@@ -125,7 +125,17 @@
 
       interact('#tile').dropzone({
         overlap: 0.2,
-        ondrop: event => {
+        ondragenter: (event) => {
+          var dropzoneElement = event.target
+          this.dragTarget.children[1].style = "background: #d4f542"
+          dropzoneElement.style = "background: #d4f542"
+        },
+        ondragleave: (event) => {
+          var dropzoneElement = event.target
+          this.dragTarget.children[1].style = ""
+          dropzoneElement.style = ""
+        },
+        ondrop: (event) => {
           const target = event.target
           let col = Number(target.getAttribute('data-col'))
           let row = Number(target.getAttribute('data-row'))
