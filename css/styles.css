@@ -149,24 +149,56 @@ hr {
     gap: 2em;
 }
 
-.water {
+.tiles .water {
     background: none;
     background-color: #00A3FF;
+    z-index: 20;
 }
 
-.forest {
+.tiles .forest {
     background: none;
     background-color: #1C8D6D;
 }
 
-.mountain {
+.tiles .mountain {
     background: none;
     background-color: #6F6F6F;
 }
 
-.grass {
+.tiles .grass {
     background: none;
     background-color: #9DD12E;
+}
+
+.tiles .none {
+    background: none;
+    background-color: #000000;
+}
+
+.water:before {
+    background: none;
+    background-color: #00A3FF;
+    z-index: 20;
+}
+
+.forest:before {
+    background: none;
+    background-color: #1C8D6D;
+}
+
+.mountain:before {
+    background: none;
+    background-color: #6F6F6F;
+}
+
+.grass:before {
+    background: none;
+    background-color: #9DD12E;
+}
+
+.none:before {
+    background: none;
+    background-color: #000000;
 }
 
 .tile div:before {
@@ -187,7 +219,7 @@ hr {
     /* 100% - (2 * border width) */
     width: calc(100% - 8px);
     /* 100% - (2 * border width) */
-    background: var(--secondary);
+    z-index: 1;
 }
 
 .hexagon, .hexagon:before, .double:after {
