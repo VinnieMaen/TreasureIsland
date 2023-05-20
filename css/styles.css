@@ -102,6 +102,17 @@ hr {
     padding: 2.5em;
 }
 
+.gamepuzzle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+}
+
+.gamepuzzle > div:first-child {
+    opacity: .5;
+}
+
 .borderG {
     border: 1px solid var(--green);
     border-radius: .5em;
@@ -136,7 +147,7 @@ h3 {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    padding: 11em 0;
+    height: 21.5em;
 }
 
 .row {

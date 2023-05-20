@@ -1,88 +1,122 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Treasure Island</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-  </head>
-  <body>
-    <header>
 
-    </header>
+<head>
+  <title>Treasure Island</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+</head>
 
-    <main>
-      <section class="game-nav">
-        <div class="logoname">
-          <img src="/images/logo.png" alt="logo of an island">
-          <h1>Treasure<span>Island</span></h1>
-        </div>
-        <div class="timer">
-          <p id="min">04</p>
-          <p>:</p>
-          <p id="sec">26</p>
-        </div>
-      </section>
-      <hr>
-      <section class="game">
-        <div class="board borderG" id="gameBoard">
-          
-        </div>
-        <div class="tiles borderY">
-          <div class="tileRow">
-            <div id="playTile" data-type="1" class="tile">
-              <div class="hexagon water" id="board"></div>
-              <div class="hexagon water" id="board"></div>
-            </div>
-            <div id="playTile" data-type="1" class="tile">
-              <div class="hexagon water" id="board"></div>
-              <div class="hexagon water" id="board"></div>
-            </div>
-          </div>
-          <div class="tileRow">
-            <div id="playTile" data-type="3" class="tile">
+<body>
+  <header>
+
+  </header>
+
+  <main>
+    <section class="game-nav">
+      <div class="logoname">
+        <img src="/images/logo.png" alt="logo of an island">
+        <h1>Treasure<span>Island</span></h1>
+      </div>
+      <div class="timer">
+        <p id="min">04</p>
+        <p>:</p>
+        <p id="sec">26</p>
+      </div>
+    </section>
+    <hr>
+    <section class="game">
+      <div class="gamepuzzle borderG">
+        <div class="board">
+          <div class="row ">
               <div class="hexagon forest" id="board"></div>
               <div class="hexagon forest" id="board"></div>
-            </div>
-            <div id="playTile" data-type="3" class="tile">
               <div class="hexagon forest" id="board"></div>
+          </div>
+          <div class="row">
+              <div class="hexagon water" id="board"></div>
               <div class="hexagon forest" id="board"></div>
-            </div>
+              <div class="hexagon water" id="board"></div>
+              <div class="hexagon water" id="board"></div>
           </div>
-          <div class="tileRow">
-            <div id="playTile" data-type="2" class="tile">
-              <div class="hexagon grass" id="board"></div>
-              <div class="hexagon grass" id="board"></div>
-            </div>
-            <div id="playTile" data-type="2" class="tile">
-              <div class="hexagon grass" id="board"></div>
-              <div class="hexagon grass" id="board"></div>
-            </div>
+          <div class="row">
+              <div class="hexagon water" id="board"></div>
+              <div class="hexagon mountain" id="board"></div>
+              <div class="hexagon forest" id="board"></div>
+              <div class="hexagon mountain" id="board"></div>
+              <div class="hexagon" id="board"></div>
           </div>
-          <div class="tileRow">
-            <div id="playTile" data-type="4" class="tile">
-              <div class="hexagon mountain" id="board"></div>
-              <div class="hexagon mountain" id="board"></div>
-            </div>
-            <div id="playTile" data-type="4" class="tile">
-              <div class="hexagon mountain" id="board"></div>
-              <div class="hexagon mountain" id="board"></div>
-            </div>
-          </div>
-          <div class="tileRow">
-            <div id="endTile" data-type="5" class="tile end">
-              <div class="hexagon mountain" id="board"></div>
+          <div class="row">
               <div class="hexagon grass" id="board"></div>
-              <div class="hexagon forest crook" id="board"></div>
-            </div>
+              <div class="hexagon mountain" id="board"></div>
+              <div class="hexagon" id="board"></div>
+              <div class="hexagon" id="board"></div>
+          </div>
+          <div class="row">
+              <div class="hexagon" id="board"></div>
+              <div class="hexagon" id="board"></div>
+              <div class="hexagon" id="board"></div>
+          </div>
+      </div>
+        <div class="board" id="gameBoard"></div>
+      </div>
+      <div class="tiles borderY">
+        <div class="tileRow">
+          <div id="playTile" data-type="1" class="tile">
+            <div class="hexagon water" id="board"></div>
+            <div class="hexagon water" id="board"></div>
+          </div>
+          <div id="playTile" data-type="1" class="tile">
+            <div class="hexagon water" id="board"></div>
+            <div class="hexagon water" id="board"></div>
           </div>
         </div>
-      </section>
-    </main>
+        <div class="tileRow">
+          <div id="playTile" data-type="3" class="tile">
+            <div class="hexagon forest" id="board"></div>
+            <div class="hexagon forest" id="board"></div>
+          </div>
+          <div id="playTile" data-type="3" class="tile">
+            <div class="hexagon forest" id="board"></div>
+            <div class="hexagon forest" id="board"></div>
+          </div>
+        </div>
+        <div class="tileRow">
+          <div id="playTile" data-type="2" class="tile">
+            <div class="hexagon grass" id="board"></div>
+            <div class="hexagon grass" id="board"></div>
+          </div>
+          <div id="playTile" data-type="2" class="tile">
+            <div class="hexagon grass" id="board"></div>
+            <div class="hexagon grass" id="board"></div>
+          </div>
+        </div>
+        <div class="tileRow">
+          <div id="playTile" data-type="4" class="tile">
+            <div class="hexagon mountain" id="board"></div>
+            <div class="hexagon mountain" id="board"></div>
+          </div>
+          <div id="playTile" data-type="4" class="tile">
+            <div class="hexagon mountain" id="board"></div>
+            <div class="hexagon mountain" id="board"></div>
+          </div>
+        </div>
+        <div class="tileRow">
+          <div id="endTile" data-type="5" class="tile end">
+            <div class="hexagon mountain" id="board"></div>
+            <div class="hexagon grass" id="board"></div>
+            <div class="hexagon forest crook" id="board"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <footer>
+  <footer>
 
-    </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-    <script src="/js/script.js"></script>
-  </body>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+
 </html>
