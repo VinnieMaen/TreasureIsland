@@ -23,7 +23,7 @@
 }
 
 html {
-    font-family:Verdana, Geneva, Tahoma, sans-serif
+    font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
 body {
@@ -64,7 +64,7 @@ main {
     color: var(--green);
 }
 
-.logoname h1 span{
+.logoname h1 span {
     color: var(--yellow);
 }
 
@@ -97,7 +97,7 @@ hr {
     gap: 1em;
 }
 
-.game > div {
+.game>div {
     width: 50%;
     padding: 2.5em;
 }
@@ -109,7 +109,7 @@ hr {
     gap: 2em;
 }
 
-.gamepuzzle > div:first-child {
+.gamepuzzle>div:first-child {
     opacity: .5;
 }
 
@@ -210,13 +210,13 @@ h3 {
 }
 
 .crook {
-    position: absolute;
-    top: -66px;
-    right: -40px
+    bottom: 65px;
+    right: 35px
 }
 
 .end {
-    display: none;
+    display: flex;
+    width: fit-content;
 }
 
 .water:before {
