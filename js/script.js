@@ -1,5 +1,14 @@
 "use-strict";
 (() => {
+  const socket = io("http://localhost:3000");
+
+  let level = localStorage.getItem("curLevel");
+  let timer = 0,
+    minutes,
+    seconds;
+
+  if (!level) level = 0;
+
   let board = [
     [0, 0, 0],
     [0, 0, 0, 0],
@@ -25,6 +34,121 @@
         [1, 2, 4],
       ],
     },
+    {
+      solution: [
+        [3, 2, 3],
+        [1, 1, 4, 3],
+        [2, 2, 1, 1, 3],
+        [2, 2, 4, 3],
+        [4, 4, 4],
+      ],
+      starter: [
+        [3, 2, 3],
+        [1, 1, 4, 3],
+        [2, 2, 1, 1, 3],
+        [2, 2, 4, 3],
+        [4, 4, 4],
+      ],
+    },
+    {
+      solution: [
+        [2, 2, 1],
+        [2, 2, 3, 1],
+        [4, 4, 2, 3, 1],
+        [4, 4, 3, 1],
+        [4, 3, 3],
+      ],
+      starter: [
+        [2, 2, 1],
+        [2, 2, 3, 1],
+        [4, 4, 2, 3, 1],
+        [4, 4, 3, 1],
+        [4, 3, 3],
+      ],
+    },
+    {
+      solution: [
+        [4, 2, 4],
+        [3, 4, 2, 4],
+        [3, 1, 1, 1, 1],
+        [3, 2, 2, 3],
+        [3, 4, 2],
+      ],
+      starter: [
+        [4, 2, 4],
+        [3, 4, 2, 4],
+        [3, 1, 1, 1, 1],
+        [3, 2, 2, 3],
+        [3, 4, 2],
+      ],
+    },
+    /* Junior */
+    {
+      solution: [
+        [3, 3, 3],
+        [1, 3, 1, 1],
+        [1, 4, 3, 4, 4],
+        [2, 4, 2, 2],
+        [2, 4, 2],
+      ],
+      starter: [
+        [3, 3, 3],
+        [1, 3, 1, 1],
+        [1, 4, 3, 4, 0],
+        [2, 4, 0, 0],
+        [0, 0, 0],
+      ],
+    },
+    {
+      solution: [
+        [3, 1, 2],
+        [3, 4, 1, 2],
+        [3, 3, 4, 4, 1],
+        [3, 4, 2, 1],
+        [2, 4, 3],
+      ],
+      starter: [
+        [3, 0, 2],
+        [3, 4, 1, 2],
+        [3, 3, 4, 4, 1],
+        [0, 4, 2, 0],
+        [2, 4, 3],
+      ],
+    },
+    {
+      solution: [
+        [4, 2, 2],
+        [4, 2, 2, 1],
+        [3, 3, 4, 1, 1],
+        [4, 4, 3, 1],
+        [2, 3, 3],
+      ],
+      starter: [
+        [0, 0, 0],
+        [4, 2, 2, 1],
+        [3, 3, 4, 1, 1],
+        [4, 4, 3, 1],
+        [0, 0, 0],
+      ],
+    },
+    {
+      solution: [
+        [4, 3, 3],
+        [3, 4, 3, 1],
+        [3, 4, 2, 1, 2],
+        [2, 4, 1, 2],
+        [2, 4, 1],
+      ],
+      starter: [
+        [4, 3, 3],
+        [3, 4, 3, 0],
+        [3, 4, 2, 0, 0],
+        [2, 4, 0, 0],
+        [2, 0, 0],
+      ],
+    },
+
+    /* Master */
     {
       solution: [
         [3, 1, 2],
@@ -95,7 +219,7 @@
       div.setAttribute("data-col", col);
       div.setAttribute("data-row", row);
 
-      div.id = "tile";
+      div.id = type === 0 ? "tile" + row + col : "tile";
       div.className = "hexagon";
       typeClass && div.classList.add(typeClass);
 
@@ -123,6 +247,10 @@
 
     setListeners() {
       let tiles = document.getElementsByClassName("tile");
+
+      socket.on("placedRec", (event) => {
+        this.onDropHandeler(event);
+      });
 
       interact(".tile").draggable({
         onstart: (event) => {
@@ -157,7 +285,7 @@
         },
       });
 
-      interact("#tile").dropzone({
+      interact(".hexagon").dropzone({
         overlap: 0.1,
         ondragenter: (event) => {
           var dropzoneElement = event.target;
@@ -170,214 +298,12 @@
           dropzoneElement.style = "";
         },
         ondrop: (event) => {
-          const target = event.target;
-          let col = Number(target.getAttribute("data-col"));
-          let row = Number(target.getAttribute("data-row"));
-          let rot = Number(this.dragTarget.getAttribute("data-rot"));
-          let tId = this.dragTarget.id;
-          if (rot === 0) {
-            if (tId === "endTile") {
-              console.log(row);
-
-              if (row <= 2) {
-                if (
-                  board[row][col] === 0 &&
-                  board[row][col - 1] === 0 &&
-                  board[row - 1][col] === 0
-                ) {
-                  board[row][col] = 2;
-                  board[row][col - 1] = 4;
-                  board[row - 1][col] = 3;
-                  this.dragTarget.remove();
-                }
-              } else {
-                if (
-                  board[row][col] === 0 &&
-                  board[row][col - 1] === 0 &&
-                  board[row - 1][col + 1] === 0
-                ) {
-                  board[row][col] = 2;
-                  board[row][col - 1] = 4;
-                  board[row - 1][col + 1] = 3;
-                  this.dragTarget.remove();
-                }
-              }
-            } else {
-              if (board[row][col - 1] === 0 && board[row][col] === 0) {
-                console.log(this.solution[row][col]);
-                console.log(this.solution[row][col - 1]);
-                if (
-                  this.solution[row][col] !== Number(this.dragType) &&
-                  this.solution[row][col - 1] !== Number(this.dragType)
-                )
-                  return alert("Tile can not be placed here!");
-
-                board[row][col] = Number(this.dragType);
-                board[row][col - 1] = Number(this.dragType);
-                this.dragTarget.remove();
-              }
-            }
-          } else if (rot === 60) {
-            if (row >= 3) {
-              if (tId === "endTile") {
-                if (
-                  board[row][col] === 0 &&
-                  board[row][col + 1] === 0 &&
-                  board[row - 1][col] === 0
-                ) {
-                  board[row][col] = 2;
-                  board[row][col + 1] = 3;
-                  board[row - 1][col] = 4;
-                  this.dragTarget.remove();
-                }
-              } else {
-                if (board[row - 1][col] === 0 && board[row][col] === 0) {
-                  if (
-                    this.solution[row][col] !== Number(this.dragType) &&
-                    this.solution[row - 1][col] !== Number(this.dragType)
-                  )
-                    return alert("Tile can not be placed here!");
-                  board[row][col] = Number(this.dragType);
-                  board[row - 1][col] = Number(this.dragType);
-                  this.dragTarget.remove();
-                }
-              }
-            } else {
-              if (tId === "endTile") {
-                if (
-                  board[row][col] === 0 &&
-                  board[row][col + 1] === 0 &&
-                  board[row - 1][col - 1] === 0
-                ) {
-                  board[row][col] = 2;
-                  board[row][col + 1] = 3;
-                  board[row - 1][col - 1] = 4;
-                  this.dragTarget.remove();
-                }
-              } else {
-                if (board[row - 1][col - 1] === 0 && board[row][col] === 0) {
-                  if (
-                    this.solution[row][col] !== Number(this.dragType) &&
-                    this.solution[row - 1][col - 1] !== Number(this.dragType)
-                  )
-                    return alert("Tile can not be placed here!");
-
-                  board[row][col] = Number(this.dragType);
-                  board[row - 1][col - 1] = Number(this.dragType);
-                  this.dragTarget.remove();
-                }
-              }
-            }
-          } else if (rot === 120) {
-            if (row >= 3) {
-              if (tId === "endTile") {
-                if (
-                  board[row][col] === 0 &&
-                  board[row + 1][col] === 0 &&
-                  board[row - 1][col + 1] === 0
-                ) {
-                  board[row][col] = 2;
-                  board[row + 1][col] = 3;
-                  board[row - 1][col + 1] = 4;
-                  this.dragTarget.remove();
-                }
-              } else {
-                if (board[row - 1][col + 1] === 0 && board[row][col] === 0) {
-                  if (
-                    this.solution[row][col] !== Number(this.dragType) &&
-                    this.solution[row - 1][col + 1] !== Number(this.dragType)
-                  )
-                    return alert("Tile can not be placed here!");
-
-                  board[row][col] = Number(this.dragType);
-                  board[row - 1][col + 1] = Number(this.dragType);
-                  this.dragTarget.remove();
-                }
-              }
-            } else {
-              if (tId === "endTile") {
-                if (
-                  board[row][col] === 0 &&
-                  board[row + 1][col + 1] === 0 &&
-                  board[row - 1][col] === 0
-                ) {
-                  board[row][col] = 2;
-                  board[row + 1][col + 1] = 3;
-                  board[row - 1][col] = 4;
-                  this.dragTarget.remove();
-                }
-              } else {
-                if (board[row - 1][col] === 0 && board[row][col] === 0) {
-                  if (
-                    this.solution[row][col] !== Number(this.dragType) &&
-                    this.solution[row - 1][col] !== Number(this.dragType)
-                  )
-                    return alert("Tile can not be placed here!");
-
-                  board[row][col] = Number(this.dragType);
-                  board[row - 1][col] = Number(this.dragType);
-                  this.dragTarget.remove();
-                }
-              }
-            }
-          } else if (rot === 180) {
-            if (row >= 2) {
-              if (
-                board[row][col] === 0 &&
-                board[row][col + 1] === 0 &&
-                board[row + 1][col - 1] === 0
-              ) {
-                board[row][col] = 2;
-                board[row][col + 1] = 4;
-                board[row + 1][col - 1] = 3;
-                this.dragTarget.remove();
-              }
-            } else {
-              board[row][col] = 2;
-              board[row][col + 1] = 4;
-              board[row + 1][col] = 3;
-              this.dragTarget.remove();
-            }
-          } else if (rot === 240) {
-            if (row >= 2) {
-              board[row][col] = 2;
-              board[row + 1][col] = 4;
-              board[row][col - 1] = 3;
-              this.dragTarget.remove();
-            } else {
-              board[row][col] = 2;
-              board[row + 1][col + 1] = 4;
-              board[row][col - 1] = 3;
-              this.dragTarget.remove();
-            }
-          } else if (rot === 300) {
-            if (row >= 2) {
-              board[row][col] = 2;
-              board[row - 1][col] = 3;
-              board[row + 1][col - 1] = 4;
-              this.dragTarget.remove();
-            } else {
-              board[row][col] = 2;
-              board[row - 1][col - 1] = 3;
-              board[row + 1][col] = 4;
-              this.dragTarget.remove();
-            }
-          }
-
-          document.getElementById("gameBoard").innerHTML = "";
-          BoardRenderer.renderBoard(
-            document.getElementById("gameBoard"),
-            board
-          );
-
-          let tiles = document.getElementsByClassName("tile").length;
-
-          if (tiles === 1)
-            document.getElementById("endTile").style.display = "flex";
-
-          setTimeout(() => {
-            if (BoardRenderer.isComplete()) alert("Puzzle Complete");
-          }, 1000);
+          this.onDropHandeler(event);
+          socket.emit("placed", {
+            target: event.target.id,
+            dragTarget: this.dragTarget.id,
+            rotation: Number(this.dragTarget.getAttribute("data-rot")),
+          });
         },
       });
 
@@ -408,13 +334,257 @@
         });
       }
     }
+
+    onDropHandeler(event) {
+      let target = event.target;
+
+      if (typeof event.target === "string") {
+        target = document.getElementById(event.target);
+        this.dragTarget = document.getElementById(event.dragTarget);
+        this.dragType = this.dragTarget.getAttribute("data-type");
+        this.dragTarget.setAttribute("data-rot", event.rotation);
+      }
+
+      let col = Number(target.getAttribute("data-col"));
+      let row = Number(target.getAttribute("data-row"));
+      let rot = Number(this.dragTarget.getAttribute("data-rot"));
+      let tId = this.dragTarget.id;
+      if (rot === 0) {
+        if (tId === "endTile") {
+          if (row <= 2) {
+            if (
+              board[row][col] === 0 &&
+              board[row][col - 1] === 0 &&
+              board[row - 1][col] === 0
+            ) {
+              board[row][col] = 2;
+              board[row][col - 1] = 4;
+              board[row - 1][col] = 3;
+              this.dragTarget.remove();
+            }
+          } else {
+            if (
+              board[row][col] === 0 &&
+              board[row][col - 1] === 0 &&
+              board[row - 1][col + 1] === 0
+            ) {
+              board[row][col] = 2;
+              board[row][col - 1] = 4;
+              board[row - 1][col + 1] = 3;
+              this.dragTarget.remove();
+            }
+          }
+        } else {
+          if (board[row][col - 1] === 0 && board[row][col] === 0) {
+            console.log(this.solution[row][col]);
+            console.log(this.solution[row][col - 1]);
+            if (
+              this.solution[row][col] !== Number(this.dragType) &&
+              this.solution[row][col - 1] !== Number(this.dragType)
+            )
+              return alert("Tile can not be placed here!");
+
+            board[row][col] = Number(this.dragType);
+            board[row][col - 1] = Number(this.dragType);
+            this.dragTarget.remove();
+          }
+        }
+      } else if (rot === 60) {
+        if (row >= 3) {
+          if (tId === "endTile") {
+            if (
+              board[row][col] === 0 &&
+              board[row][col + 1] === 0 &&
+              board[row - 1][col] === 0
+            ) {
+              board[row][col] = 2;
+              board[row][col + 1] = 3;
+              board[row - 1][col] = 4;
+              this.dragTarget.remove();
+            }
+          } else {
+            if (board[row - 1][col] === 0 && board[row][col] === 0) {
+              if (
+                this.solution[row][col] !== Number(this.dragType) &&
+                this.solution[row - 1][col] !== Number(this.dragType)
+              )
+                return alert("Tile can not be placed here!");
+              board[row][col] = Number(this.dragType);
+              board[row - 1][col] = Number(this.dragType);
+              this.dragTarget.remove();
+            }
+          }
+        } else {
+          if (tId === "endTile") {
+            if (
+              board[row][col] === 0 &&
+              board[row][col + 1] === 0 &&
+              board[row - 1][col - 1] === 0
+            ) {
+              board[row][col] = 2;
+              board[row][col + 1] = 3;
+              board[row - 1][col - 1] = 4;
+              this.dragTarget.remove();
+            }
+          } else {
+            if (board[row - 1][col - 1] === 0 && board[row][col] === 0) {
+              if (
+                this.solution[row][col] !== Number(this.dragType) &&
+                this.solution[row - 1][col - 1] !== Number(this.dragType)
+              )
+                return alert("Tile can not be placed here!");
+
+              board[row][col] = Number(this.dragType);
+              board[row - 1][col - 1] = Number(this.dragType);
+              this.dragTarget.remove();
+            }
+          }
+        }
+      } else if (rot === 120) {
+        if (row >= 3) {
+          if (tId === "endTile") {
+            if (
+              board[row][col] === 0 &&
+              board[row + 1][col] === 0 &&
+              board[row - 1][col + 1] === 0
+            ) {
+              board[row][col] = 2;
+              board[row + 1][col] = 3;
+              board[row - 1][col + 1] = 4;
+              this.dragTarget.remove();
+            }
+          } else {
+            if (board[row - 1][col + 1] === 0 && board[row][col] === 0) {
+              if (
+                this.solution[row][col] !== Number(this.dragType) &&
+                this.solution[row - 1][col + 1] !== Number(this.dragType)
+              )
+                return alert("Tile can not be placed here!");
+
+              board[row][col] = Number(this.dragType);
+              board[row - 1][col + 1] = Number(this.dragType);
+              this.dragTarget.remove();
+            }
+          }
+        } else {
+          if (tId === "endTile") {
+            if (
+              board[row][col] === 0 &&
+              board[row + 1][col + 1] === 0 &&
+              board[row - 1][col] === 0
+            ) {
+              board[row][col] = 2;
+              board[row + 1][col + 1] = 3;
+              board[row - 1][col] = 4;
+              this.dragTarget.remove();
+            }
+          } else {
+            if (board[row - 1][col] === 0 && board[row][col] === 0) {
+              if (
+                this.solution[row][col] !== Number(this.dragType) &&
+                this.solution[row - 1][col] !== Number(this.dragType)
+              )
+                return alert("Tile can not be placed here!");
+
+              board[row][col] = Number(this.dragType);
+              board[row - 1][col] = Number(this.dragType);
+              this.dragTarget.remove();
+            }
+          }
+        }
+      } else if (rot === 180) {
+        if (row >= 2) {
+          if (
+            board[row][col] === 0 &&
+            board[row][col + 1] === 0 &&
+            board[row + 1][col - 1] === 0
+          ) {
+            board[row][col] = 2;
+            board[row][col + 1] = 4;
+            board[row + 1][col - 1] = 3;
+            this.dragTarget.remove();
+          }
+        } else {
+          board[row][col] = 2;
+          board[row][col + 1] = 4;
+          board[row + 1][col] = 3;
+          this.dragTarget.remove();
+        }
+      } else if (rot === 240) {
+        if (row >= 2) {
+          board[row][col] = 2;
+          board[row + 1][col] = 4;
+          board[row][col - 1] = 3;
+          this.dragTarget.remove();
+        } else {
+          board[row][col] = 2;
+          board[row + 1][col + 1] = 4;
+          board[row][col - 1] = 3;
+          this.dragTarget.remove();
+        }
+      } else if (rot === 300) {
+        if (row >= 2) {
+          board[row][col] = 2;
+          board[row - 1][col] = 3;
+          board[row + 1][col - 1] = 4;
+          this.dragTarget.remove();
+        } else {
+          board[row][col] = 2;
+          board[row - 1][col - 1] = 3;
+          board[row + 1][col] = 4;
+          this.dragTarget.remove();
+        }
+      }
+
+      document.getElementById("gameBoard").innerHTML = "";
+      BoardRenderer.renderBoard(document.getElementById("gameBoard"), board);
+
+      let tiles = document.getElementsByClassName("tile").length;
+
+      if (tiles === 1)
+        document.getElementById("endTileRow").style.display = "flex";
+
+      setTimeout(() => {
+        if (BoardRenderer.isComplete()) {
+          localStorage.setItem(level, `${minutes}:${seconds}`);
+          alert("Puzzle Complete");
+          localStorage.setItem("curLevel", ++level);
+          window.location = window.location;
+        }
+      }, 200);
+    }
   }
 
-  let handeler = new TileHandler(solutions[0].solution);
-  BoardRenderer.renderBoard(document.getElementById("gameBoard"), board);
-  BoardRenderer.renderBoard(
-    document.getElementById("startSit"),
-    solutions[0].starter
-  );
-  handeler.setListeners();
+  /* Credits to ChatGPT */
+  const startTimer = () => {
+    (timer = 0), minutes, seconds;
+
+    const interval = setInterval(function () {
+      minutes = parseInt(timer / 60, 10);
+      seconds = parseInt(timer % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      document.getElementById("min").innerText = minutes;
+      document.getElementById("sec").innerText = seconds;
+      timer++;
+    }, 1000);
+  };
+  /* */
+
+  const init = () => {
+    let gameboard = document.getElementById("gameBoard"),
+      startSit = document.getElementById("startSit");
+
+    gameboard.innerHTML = "";
+    startSit.innerHTML = "";
+    let handeler = new TileHandler(solutions[level].solution);
+    BoardRenderer.renderBoard(gameboard, board);
+    BoardRenderer.renderBoard(startSit, solutions[level].starter);
+    handeler.setListeners();
+    startTimer();
+  };
+
+  init();
 })();

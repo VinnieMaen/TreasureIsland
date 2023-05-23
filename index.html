@@ -15,9 +15,9 @@
           <h1>Treasure<span>Island</span></h1>
         </div>
         <div class="timer">
-          <p id="min">04</p>
+          <p id="min">00</p>
           <p>:</p>
-          <p id="sec">26</p>
+          <p id="sec">00</p>
         </div>
       </section>
       <hr />
@@ -28,46 +28,46 @@
         </div>
         <div class="tiles borderY">
           <div class="tileRow">
-            <div id="playTile" data-type="1" class="tile">
+            <div id="playTile1" data-type="1" class="tile">
               <div class="hexagon water" id="board"></div>
               <div class="hexagon water" id="board"></div>
             </div>
-            <div id="playTile" data-type="1" class="tile">
+            <div id="playTile2" data-type="1" class="tile">
               <div class="hexagon water" id="board"></div>
               <div class="hexagon water" id="board"></div>
             </div>
           </div>
           <div class="tileRow">
-            <div id="playTile" data-type="3" class="tile">
+            <div id="playTile3" data-type="3" class="tile">
               <div class="hexagon forest" id="board"></div>
               <div class="hexagon forest" id="board"></div>
             </div>
-            <div id="playTile" data-type="3" class="tile">
+            <div id="playTile4" data-type="3" class="tile">
               <div class="hexagon forest" id="board"></div>
               <div class="hexagon forest" id="board"></div>
             </div>
           </div>
           <div class="tileRow">
-            <div id="playTile" data-type="2" class="tile">
+            <div id="playTile5" data-type="2" class="tile">
               <div class="hexagon grass" id="board"></div>
               <div class="hexagon grass" id="board"></div>
             </div>
-            <div id="playTile" data-type="2" class="tile">
+            <div id="playTile6" data-type="2" class="tile">
               <div class="hexagon grass" id="board"></div>
               <div class="hexagon grass" id="board"></div>
             </div>
           </div>
           <div class="tileRow">
-            <div id="playTile" data-type="4" class="tile">
+            <div id="playTile7" data-type="4" class="tile">
               <div class="hexagon mountain" id="board"></div>
               <div class="hexagon mountain" id="board"></div>
             </div>
-            <div id="playTile" data-type="4" class="tile">
+            <div id="playTile7" data-type="4" class="tile">
               <div class="hexagon mountain" id="board"></div>
               <div class="hexagon mountain" id="board"></div>
             </div>
           </div>
-          <div class="tileRow end">
+          <div id="endTileRow" class="tileRow end">
             <div id="endTile" data-type="5" class="tile endTile">
               <div class="hexagon mountain" id="board"></div>
               <div class="hexagon grass" id="board"></div>
@@ -79,7 +79,7 @@
     </main>
 
     <footer></footer>
-
+    <script src="https://cdn.socket.io/socket.io-3.0.5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="/js/script.js"></script>
   </body>
