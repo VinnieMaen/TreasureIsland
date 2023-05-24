@@ -1,6 +1,6 @@
 "use-strict";
 (() => {
-  const socket = io("http://localhost:3000");
+  const socket = io("https://labonodejs.onrender.com/");
 
   let level = localStorage.getItem("curLevel");
   let timer = 0,
@@ -285,16 +285,14 @@
         },
       });
 
-      interact(".hexagon").dropzone({
+      interact(".board .hexagon").dropzone({
         overlap: 0.1,
         ondragenter: (event) => {
           var dropzoneElement = event.target;
-          this.dragTarget.children[1].style = "background: #d4f542";
           dropzoneElement.style = "background: #d4f542";
         },
         ondragleave: (event) => {
           var dropzoneElement = event.target;
-          this.dragTarget.children[1].style = "";
           dropzoneElement.style = "";
         },
         ondrop: (event) => {
@@ -376,8 +374,6 @@
           }
         } else {
           if (board[row][col - 1] === 0 && board[row][col] === 0) {
-            console.log(this.solution[row][col]);
-            console.log(this.solution[row][col - 1]);
             if (
               this.solution[row][col] !== Number(this.dragType) &&
               this.solution[row][col - 1] !== Number(this.dragType)
@@ -505,34 +501,64 @@
             this.dragTarget.remove();
           }
         } else {
-          board[row][col] = 2;
-          board[row][col + 1] = 4;
-          board[row + 1][col] = 3;
-          this.dragTarget.remove();
+          if (
+            board[row][col] === 0 &&
+            board[row][col + 1] === 0 &&
+            board[row + 1][col] === 0
+          ) {
+            board[row][col] = 2;
+            board[row][col + 1] = 4;
+            board[row + 1][col] = 3;
+            this.dragTarget.remove();
+          }
         }
       } else if (rot === 240) {
         if (row >= 2) {
-          board[row][col] = 2;
-          board[row + 1][col] = 4;
-          board[row][col - 1] = 3;
-          this.dragTarget.remove();
+          if (
+            board[row][col] === 0 &&
+            board[row + 1][col] === 0 &&
+            board[row][col - 1] === 0
+          ) {
+            board[row][col] = 2;
+            board[row + 1][col] = 4;
+            board[row][col - 1] = 3;
+            this.dragTarget.remove();
+          }
         } else {
-          board[row][col] = 2;
-          board[row + 1][col + 1] = 4;
-          board[row][col - 1] = 3;
-          this.dragTarget.remove();
+          if (
+            board[row][col] === 0 &&
+            board[row + 1][col + 1] === 0 &&
+            board[row][col - 1] === 0
+          ) {
+            board[row][col] = 2;
+            board[row + 1][col + 1] = 4;
+            board[row][col - 1] = 3;
+            this.dragTarget.remove();
+          }
         }
       } else if (rot === 300) {
         if (row >= 2) {
-          board[row][col] = 2;
-          board[row - 1][col] = 3;
-          board[row + 1][col - 1] = 4;
-          this.dragTarget.remove();
+          if (
+            board[row][col] === 0 &&
+            board[row - 1][col] === 0 &&
+            board[row + 1][col - 1] === 0
+          ) {
+            board[row][col] = 2;
+            board[row - 1][col] = 3;
+            board[row + 1][col - 1] = 4;
+            this.dragTarget.remove();
+          }
         } else {
-          board[row][col] = 2;
-          board[row - 1][col - 1] = 3;
-          board[row + 1][col] = 4;
-          this.dragTarget.remove();
+          if (
+            board[row][col] === 0 &&
+            board[row - 1][col - 1] === 0 &&
+            board[row + 1][col] === 0
+          ) {
+            board[row][col] = 2;
+            board[row - 1][col - 1] = 3;
+            board[row + 1][col] = 4;
+            this.dragTarget.remove();
+          }
         }
       }
 
