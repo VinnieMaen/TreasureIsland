@@ -290,7 +290,8 @@
         overlap: 0.1,
         ondragenter: (event) => {
           var dropzoneElement = event.target;
-          dropzoneElement.style = "background: #d4f542";
+          dropzoneElement.style.background = "#d4f542";
+          dropzoneElement.style.zIndex = "1";
         },
         ondragleave: (event) => {
           var dropzoneElement = event.target;
