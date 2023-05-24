@@ -249,6 +249,7 @@
       let tiles = document.getElementsByClassName("tile");
 
       socket.on("placedRec", (event) => {
+        if (event.level !== level) return;
         this.onDropHandeler(event);
       });
 
@@ -301,6 +302,7 @@
             target: event.target.id,
             dragTarget: this.dragTarget.id,
             rotation: Number(this.dragTarget.getAttribute("data-rot")),
+            level: level,
           });
         },
       });
