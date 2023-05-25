@@ -1,0 +1,133 @@
+:root {
+    --white: #f4f6f6;
+    --lightgray: #d1d1d1;
+    --darkgray: #292929;
+    --black: #181818;
+    --green: #2ED1A2;
+    --yellow: #FEC961;
+    --water: #00A3FF;
+    --forest: #1C8D6D;
+    --mountain: #6F6F6F;
+    --grass: #9DD12E;
+    --primary: var(--white);
+    --secondary: var(--lightgray);
+    --textDefault: var(--black);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: var(--darkgray);
+        --secondary: var(--black);
+        --textDefault: var(--white);
+    }
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+body {
+    padding: 2em;
+    margin: 0;
+    background-image: url(/images/bg_img.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    color: var(--textDefault);
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 75%;
+    margin: 0 auto;
+}
+
+
+main {
+    width: 65%;
+    margin: auto;
+    padding: 2em;
+    border-radius: 1em;
+    background-color: var(--primary);
+    min-width: 56em;
+    text-align: center;
+}
+
+li {
+    text-decoration: none;
+    list-style: none;
+
+}
+
+button {
+    background: transparent;
+    border: none;
+    color: var(--textDefault);
+    font-size: 2em;
+    height: 1em;
+    width: 1em;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    max-width: 75%;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.logo h1 {
+    color: var(--green);
+    margin-left: .5em;
+}
+
+.logo h1 span {
+    color: var(--yellow);
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+
+main div {
+    display: flex;
+    justify-content: center;
+}
+
+main .place {
+    width: 20%;
+}
+
+main .time {
+    width: 20%;
+}
+
+main .username {
+    width: 50%;
+}
+
+main ul {
+    padding: 0;
+    display: inline-flex;
+    flex-direction: column;
+    width: 30%;
+    text-align: center;
+}
+
+main ul li {
+    border: solid var(--textDefault) 1px;
+    font-size: 1.125rem;
+    padding: .5em;
+}
+
+main div>span {
+    font-size: 1.5rem;
+}
