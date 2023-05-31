@@ -250,11 +250,12 @@
     setListeners() {
       let tiles = document.getElementsByClassName("tile");
 
-      if (!gameID) return;
-      socket.on("placedRec", (event) => {
-        if (event.level !== level || event.gameID !== gameID) return;
-        this.onDropHandeler(event);
-      });
+      if (gameID) {
+        socket.on("placedRec", (event) => {
+          if (event.level !== level || event.gameID !== gameID) return;
+          this.onDropHandeler(event);
+        });
+      }
 
       interact(".tile").draggable({
         onstart: (event) => {
