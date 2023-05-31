@@ -3,6 +3,8 @@
   const socket = io("https://labonodejs.onrender.com/");
 
   let level = localStorage.getItem("curLevel");
+  let gameID = window.location.href.split("gameID=")[1]
+
   let timer = 0,
     minutes,
     seconds;
@@ -248,8 +250,9 @@
     setListeners() {
       let tiles = document.getElementsByClassName("tile");
 
+      if (!gameID) return;
       socket.on("placedRec", (event) => {
-        if (event.level !== level) return;
+        if (event.level !== level || event.gameID !== gameID) return;
         this.onDropHandeler(event);
       });
 
@@ -299,11 +302,14 @@
         },
         ondrop: (event) => {
           this.onDropHandeler(event);
+
+          if (!gameID) return;
           socket.emit("placed", {
             target: event.target.id,
             dragTarget: this.dragTarget.id,
             rotation: Number(this.dragTarget.getAttribute("data-rot")),
             level: level,
+            gameID
           });
         },
       });
@@ -575,7 +581,13 @@
 
       setTimeout(() => {
         if (BoardRenderer.isComplete()) {
-          localStorage.setItem(level, `${minutes}:${seconds}`);
+          let curScores = localStorage.getItem("scores")
+
+          if (!curScores) curScores = [];
+          else curScores = JSON.parse(curScores)
+
+          curScores.push({user: localStorage.getItem("username"), time: `${minutes}:${seconds}`, level, gameID})
+          localStorage.setItem("scores", JSON.stringify(curScores));
           alert("Puzzle Complete");
           localStorage.setItem("curLevel", ++level);
           window.location = window.location;
@@ -613,6 +625,10 @@
     BoardRenderer.renderBoard(startSit, solutions[level].starter);
     handeler.setListeners();
     startTimer();
+
+    document.getElementById("reset").addEventListener("click", () => {
+      window.location = window.location
+    })
   };
 
   init();

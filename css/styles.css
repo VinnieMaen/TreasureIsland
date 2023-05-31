@@ -116,6 +116,7 @@ form {
     background-color: transparent;
     color: var(--textDefault);
     height: 2em;
+    cursor: pointer;
 }
 
 .rstbtn i {
