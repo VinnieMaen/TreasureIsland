@@ -621,11 +621,18 @@
 
     gameboard.innerHTML = "";
     startSit.innerHTML = "";
-    let handeler = new TileHandler(solutions[level].solution);
-    BoardRenderer.renderBoard(gameboard, board);
-    BoardRenderer.renderBoard(startSit, solutions[level].starter);
-    handeler.setListeners();
-    startTimer();
+    if (!solutions[level]) {
+      alert("You have successfuly completed the game!")
+      localStorage.setItem("curLevel", "0")
+      return window.location.href = "/"
+    } else {
+      let handeler = new TileHandler(solutions[level].solution);
+      BoardRenderer.renderBoard(gameboard, board);
+      BoardRenderer.renderBoard(startSit, solutions[level].starter);
+      handeler.setListeners();
+      startTimer();
+    }
+   
 
     document.getElementById("reset").addEventListener("click", () => {
       window.location = window.location
