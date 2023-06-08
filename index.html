@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treasure Island</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
@@ -12,7 +15,7 @@
     <main>
         <section class="game-nav">
             <div class="logoname">
-                <img src="/images/logo.png" alt="logo of an island" />
+                <img src="/images/logo.png" alt="logo of an island">
                 <h1>Treasure<span>Island</span></h1>
             </div>
             <div class="game-nav-r">
@@ -26,15 +29,13 @@
                 </button>
             </div>
         </section>
-        <hr />
-        <section>
-            <form class="start" action="">
-                <input id="username" class="borderY" type="text" placeholder="Username" required>
-                <a class="btnlbds borderG" href="/highscore/">Leaderboards</a>
-                <a id="single" class="btnsp borderY" href="/game/">Singleplayer</a>
-                <a id="multi" class="btnmp borderG" href="/game/">Multiplayer</a>
-            </form>
-        </section>
+        <hr>
+        <form class="start">
+            <input id="username" class="borderY" type="text" placeholder="Username" required>
+            <a class="btnlbds borderG" href="/highscore/">Leaderboards</a>
+            <a id="single" class="btnsp borderY" href="/game/">Singleplayer</a>
+            <a id="multi" class="btnmp borderG" href="/game/">Multiplayer</a>
+        </form>
     </main>
 
     <footer></footer>
@@ -43,4 +44,5 @@
     <script src="https://kit.fontawesome.com/8ebb754ef3.js" crossorigin="anonymous"></script>
     <script src="/js/home.js"></script>
 </body>
+
 </html>
