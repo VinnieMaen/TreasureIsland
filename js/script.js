@@ -20,6 +20,7 @@
   ];
 
   let solutions = [
+    /* starter */
     {
       solution: [
         [4, 3, 3],
