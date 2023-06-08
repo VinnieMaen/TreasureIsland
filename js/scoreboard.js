@@ -49,6 +49,8 @@
             let times = document.querySelector(".time").querySelectorAll("li")
 
             for (let i = 0; i < scores.length; i++) {
+                if (i > 9) return;
+                
                 let curScore = scores[i];
                 usernames[i+1].innerText = curScore.user
                 times[i+1].innerText = curScore.time
